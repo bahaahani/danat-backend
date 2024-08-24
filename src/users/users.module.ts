@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user.controller';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -10,6 +11,6 @@ import { User } from './entities/user.entity';
     ],
     controllers: [UserController],
     providers: [UsersService],
-    exports: [UsersService],
+    exports: [UsersService, JwtModule],
 })
 export class UsersModule { }
