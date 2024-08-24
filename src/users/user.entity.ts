@@ -22,6 +22,9 @@ export class User {
   role: string;
 
   @Column()
+  status: string;
+
+  @Column()
   preferences: string;
 
   @OneToMany(() => Enrollment, enrollment => enrollment.user)

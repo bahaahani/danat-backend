@@ -1,12 +1,10 @@
 import { Body, Controller, Get, Param, Post, Put, Delete, UseGuards, Request } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { Review } from './review.entity';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('api/courses/:courseId/reviews')
-@UseGuards(JwtAuthGuard)
 export class ReviewController {
-  constructor(private readonly reviewService: ReviewService) {}
+  constructor(private readonly reviewService: ReviewService) { }
 
   @Get()
   async getAllReviews(@Param('courseId') courseId: number): Promise<Review[]> {

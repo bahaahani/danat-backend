@@ -14,7 +14,7 @@ export class AdminService {
     private userRepository: Repository<User>,
     @InjectRepository(Payment)
     private paymentRepository: Repository<Payment>,
-  ) {}
+  ) { }
 
   async getAllCourses(): Promise<Course[]> {
     return this.courseRepository.find({ relations: ['categories', 'enrollments', 'reviews'] });
@@ -37,8 +37,14 @@ export class AdminService {
     return this.userRepository.find({ relations: ['enrollments', 'payments', 'notifications'] });
   }
 
-  async updateUserStatus(id: number, status: string): Promise<User> {
-    await this.userRepository.update(id, { status });
+  async updateUserStatus(id: number, status: string): Promise<User | null> {
+    const result = await this.userRepository.update(id, { status });
+
+    if (result.affected === 0) {
+      // Handle the case where no rows were updated (e.g., user not found)
+      return null;
+    }
+
     return this.userRepository.findOne({ where: { id } });
   }
 

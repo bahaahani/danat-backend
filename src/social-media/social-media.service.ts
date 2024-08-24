@@ -1,4 +1,4 @@
-import { Injectable, HttpService } from '@nestjs/common';
+import { Injectable, HttpServer } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TwitterApi } from 'twitter-api-v2';
 
@@ -7,7 +7,7 @@ export class SocialMediaService {
   private twitterClient: TwitterApi;
 
   constructor(
-    private httpService: HttpService,
+    private httpService: HttpServer,
     private configService: ConfigService
   ) {
     this.twitterClient = new TwitterApi({

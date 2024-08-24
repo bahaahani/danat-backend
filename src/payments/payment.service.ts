@@ -5,11 +5,11 @@ import { Payment } from './payment.entity';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/entities/course.entity';
 import { ConfigService } from '@nestjs/config';
-import Stripe from 'stripe';
+
 
 @Injectable()
 export class PaymentService {
-  private stripe: Stripe;
+  private stripe: any;
 
   constructor(
     @InjectRepository(Payment)
@@ -20,7 +20,7 @@ export class PaymentService {
     private courseRepository: Repository<Course>,
     private configService: ConfigService,
   ) {
-    this.stripe = new Stripe(this.configService.get<string>('STRIPE_SECRET_KEY'));
+    // this.stripe = new Stripe(this.configService.get<string>('STRIPE_SECRET_KEY'));
   }
 
   async createPaymentIntent(userId: number, courseId: number, amount: number): Promise<{ clientSecret: string }> {

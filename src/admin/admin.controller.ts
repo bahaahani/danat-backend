@@ -12,12 +12,10 @@ import { AdminService } from './admin.service';
 import { Course } from '../courses/entities/course.entity';
 import { User } from '../users/user.entity';
 import { Payment } from '../payments/payment.entity';
-import { Roles } from '../auth/roles.decorator';
-import { RolesGuard } from '../auth/roles.guard';
 
 @Controller('api/admin')
-@UseGuards(RolesGuard)
-@Roles('admin')
+@UseGuards()
+
 export class AdminController {
   constructor(private readonly adminService: AdminService) { }
 

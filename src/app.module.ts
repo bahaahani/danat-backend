@@ -3,13 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { CoursesModule } from './courses/courses.module';
-import { ReviewsModule } from './reviews/reviews.module';
-import { PaymentsModule } from './payments/payments.module';
-import { NotificationsModule } from './notifications/notifications.module';
-import { EnrollmentsModule } from './enrollments/enrollments.module';
-import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -37,13 +31,7 @@ import { AdminModule } from './admin/admin.module';
       inject: [ConfigService],
     }),
     AuthModule,
-    UsersModule,
-    CoursesModule,
-    ReviewsModule,
-    PaymentsModule,
-    NotificationsModule,
-    EnrollmentsModule,
-    AdminModule,
+
   ],
 })
 export class AppModule { }

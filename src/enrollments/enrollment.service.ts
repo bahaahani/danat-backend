@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Enrollment } from './enrollment.entity';
+import { Enrollment } from './enrollment.entity.ts';
 import { User } from '../users/user.entity';
 import { Course } from '../courses/entities/course.entity';
 
@@ -14,7 +14,7 @@ export class EnrollmentService {
     private userRepository: Repository<User>,
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
-  ) {}
+  ) { }
 
   async getUserEnrollments(userId: number): Promise<Enrollment[]> {
     return this.enrollmentRepository.find({

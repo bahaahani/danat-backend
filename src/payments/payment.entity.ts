@@ -23,7 +23,7 @@ export class Payment {
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => Course, course => course.payments)
+  // @ManyToOne(() => Course, course => course.payments)
   @JoinColumn()
   course: Course;
 }
