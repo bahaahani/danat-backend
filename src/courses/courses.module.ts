@@ -7,6 +7,7 @@ import { CoursesService } from './courses.service';
 import { CoursesController } from './courses.controller';
 import { Course } from './entities/course.entity';
 import { Enrollment } from './entities/enrollment.entity';
+import { JwtModule } from '@nestjs/jwt'; // Ensure JwtModule is imported
 
 @Module({
   imports: [
@@ -19,6 +20,10 @@ import { Enrollment } from './entities/enrollment.entity';
           return cb(null, `${randomName}${extname(file.originalname)}`);
         },
       }),
+    }),
+    JwtModule.register({
+      secret: 'yourSecretKey', // Ensure this matches the secret key used in other modules
+      signOptions: { expiresIn: '60s' },
     }),
   ],
   providers: [CoursesService],

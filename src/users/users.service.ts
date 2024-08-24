@@ -41,4 +41,30 @@ export class UsersService {
     async remove(id: number): Promise<void> {
         await this.usersRepository.delete(id);
     }
+
+    async changePassword(id: number, oldPassword: string, newPassword: string): Promise<User> {
+        const user = await this.findById(id);
+        if (user) {
+            user.password = newPassword; // You should hash the password before saving
+            await this.usersRepository.save(user);
+        }
+        return user;
+    }
+
+    async updateEmailPreferences(id: number, preferences: string): Promise<User> {
+        const user = await this.findById(id);
+        if (user) {
+            user.emailPreferences = preferences; // Assuming emailPreferences is a field in User entity
+            await this.usersRepository.save(user);
+        }
+        return user;
+    }
+
+    async getCourseHistory(id: number): Promise<any[]> {
+        const user = await this.findById(id);
+        if (user) {
+            return user.enrollments; // Assuming enrollments is a relation in User entity
+        }
+        return [];
+    }
 }

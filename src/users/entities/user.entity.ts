@@ -17,4 +17,7 @@ export class User {
 
   @OneToMany(() => Enrollment, enrollment => enrollment.user)
   enrollments: Enrollment[];
+
+  @Column({ nullable: true })
+  emailPreferences: string;
 }
