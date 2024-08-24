@@ -1,26 +1,29 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from '../users/user.entity';
-import { Course } from './course.entity';
+import { Course } from '../courses/entities/course.entity';
 
 @Entity()
-export class Enrollment {
+export class Payment {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  enrollmentDate: Date;
+  amount: number;
 
   @Column()
-  status: string;
+  paymentMethod: string;
 
   @Column()
-  progress: number;
+  paymentStatus: string;
 
-  @ManyToOne(() => User, user => user.enrollments)
+  @Column()
+  paymentDate: Date;
+
+  @ManyToOne(() => User, user => user.payments)
   @JoinColumn()
   user: User;
 
-  @ManyToOne(() => Course, course => course.enrollments)
+  @ManyToOne(() => Course, course => course.payments)
   @JoinColumn()
   course: Course;
 }
