@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Enrollment } from './enrollment.entity.ts';
-import { User } from '../users/user.entity';
+import { Enrollment } from './enrollment.entity';
+import { User } from '../users/entities/user.entity';
 import { Course } from '../courses/entities/course.entity';
 
 @Injectable()
@@ -26,14 +26,14 @@ export class EnrollmentService {
   async enrollInCourse(userId: number, courseId: number): Promise<Enrollment> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     const course = await this.courseRepository.findOne({ where: { id: courseId } });
-    const enrollment = await this.enrollmentRepository.save({
+    const enrollment = this.enrollmentRepository.create({
       user,
       course,
       enrollmentDate: new Date(),
       status: 'active',
       progress: 0,
     });
-    return enrollment;
+    return this.enrollmentRepository.save(enrollment);
   }
 
   async updateCourseProgress(enrollmentId: number, userId: number, progress: number): Promise<Enrollment> {

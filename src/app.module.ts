@@ -3,7 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 import { CoursesModule } from './courses/courses.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { PaymentsModule } from './payments/payments.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { EnrollmentsModule } from './enrollments/enrollments.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -24,14 +30,22 @@ import { CoursesModule } from './courses/courses.module';
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        ttl: configService.get('THROTTLE_TTL'),
-        limit: configService.get('THROTTLE_LIMIT'),
-      }),
+      useFactory: (configService: ConfigService) => {
+        return {
+          ttl: configService.get<number>('THROTTLE_TTL'),
+          limit: configService.get<number>('THROTTLE_LIMIT'),
+        };
+      },
       inject: [ConfigService],
     }),
     AuthModule,
-
+    UsersModule,
+    CoursesModule,
+    ReviewsModule,
+    PaymentsModule,
+    NotificationsModule,
+    EnrollmentsModule,
+    AdminModule,
   ],
 })
 export class AppModule { }

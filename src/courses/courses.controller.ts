@@ -11,7 +11,7 @@ import { extname } from 'path';
 @Controller('courses')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(private readonly coursesService: CoursesService) { }
 
   @Get()
   findAll(@Query() query): Promise<Course[]> {

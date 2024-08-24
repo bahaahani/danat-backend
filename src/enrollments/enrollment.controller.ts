@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put, UseGuards, Request } from '@nestjs/common';
 import { EnrollmentService } from './enrollment.service';
-import { Enrollment } from './enrollment.entity.ts';
+import { Enrollment } from './enrollment.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
