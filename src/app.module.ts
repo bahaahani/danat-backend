@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CoursesModule } from './courses/courses.module';
@@ -26,16 +25,6 @@ import { AdminModule } from './admin/admin.module';
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: configService.get('NODE_ENV') !== 'production',
       }),
-      inject: [ConfigService],
-    }),
-    ThrottlerModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => {
-        return {
-          ttl: configService.get<number>('THROTTLE_TTL'),
-          limit: configService.get<number>('THROTTLE_LIMIT'),
-        };
-      },
       inject: [ConfigService],
     }),
     AuthModule,

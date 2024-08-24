@@ -12,7 +12,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalGuards(new CustomThrottlerGuard());
 
   const config = new DocumentBuilder()
     .setTitle('DANAT API')

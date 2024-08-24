@@ -1,19 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
+import { User } from '../users/entities/user.entity';
+import { Course } from '../courses/entities/course.entity';
 
 @Entity()
 export class Enrollment {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    studentName: string;
+  @ManyToOne(() => User, (user) => user.enrollments)
+  user: User;
 
-    @Column()
-    courseName: string;
+  @ManyToOne(() => Course, (course) => course.enrollments)
+  course: Course;
 
-    // Add more columns as needed
+  @Column()
+  enrollmentDate: Date;
 
-    // Add relationships with other entities if necessary
+  @Column()
+  status: string;
 
-    // Add custom methods or decorators as needed
+  @Column()
+  progress: number;
 }

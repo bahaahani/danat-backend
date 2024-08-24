@@ -19,7 +19,7 @@ export class EnrollmentService {
   async getUserEnrollments(userId: number): Promise<Enrollment[]> {
     return this.enrollmentRepository.find({
       where: { user: { id: userId } },
-      relations: ['course'],
+      relations: ['course', 'user'],
     });
   }
 
