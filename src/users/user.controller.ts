@@ -6,7 +6,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('api/user')
 @UseGuards(JwtAuthGuard)
 export class UserController {
-  constructor(private readonly usersService: UsersService) {} // Ensure UsersService is injected here
+  constructor(private readonly usersService: UsersService) { } // Ensure UsersService is injected here
 
   @Get('profile')
   async getProfile(@Request() req): Promise<User> {

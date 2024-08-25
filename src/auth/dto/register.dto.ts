@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class RegisterDto {
     @IsEmail()
@@ -13,9 +13,10 @@ export class RegisterDto {
     name: string;
 
     @IsString()
-    role?: string; // Make role optional
+    @IsNotEmpty()
+    role: string; // Make role required
 
-    @IsOptional()
     @IsString()
-    preferences?: string; // Make emailPreferences optional
+    @IsNotEmpty()
+    preferences?: string; // Make emailPreferences required
 }

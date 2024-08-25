@@ -35,7 +35,6 @@ import { AdminModule } from './admin/admin.module';
     NotificationsModule,
     EnrollmentsModule,
     AdminModule,
-    AuthModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
