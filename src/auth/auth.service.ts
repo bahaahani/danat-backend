@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcryptjs';
+import { RegisterDto } from './dto/register.dto';
+import { User } from '../users/entities/user.entity';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,8 +29,22 @@ export class AuthService {
     };
   }
 
-  register(registerDto: any) {
-    return this.usersService.create(registerDto);
+  async register(registerDto: RegisterDto): Promise<User> {
+    // Ensure the role is set, default to 'user' if not provided
+    if (!registerDto.role) {
+      registerDto.role = 'user';
+    }
+    const createUserDto: CreateUserDto = {
+      email: registerDto.email,
+      password: registerDto.password,
+      name: registerDto.name,
+      role: registerDto.role,
+      status: 'active', // Set default status
+      preferences: registerDto.preferences || null // Set emailPreferences if provided, else null
+    };
+    console.log('createUserDto:', createUserDto); // Add logging
+    const user = await this.usersService.create(createUserDto);
+    return user;
   }
 
   generateAccessToken(payload: any) {

@@ -16,6 +16,7 @@ export class UsersService {
     }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
+        console.log('createUserDto in UsersService:', createUserDto); // Add logging
         const newUser = this.usersRepository.create(createUserDto);
         return this.usersRepository.save(newUser);
     }
@@ -54,7 +55,7 @@ export class UsersService {
     async updateEmailPreferences(id: number, preferences: string): Promise<User> {
         const user = await this.findById(id);
         if (user) {
-            user.emailPreferences = preferences; // Assuming emailPreferences is a field in User entity
+            user.preferences = preferences; // Assuming emailPreferences is a field in User entity
             await this.usersRepository.save(user);
         }
         return user;
